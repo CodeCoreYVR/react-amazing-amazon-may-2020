@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import productsData from '../../data/products';
 import ProductDetails  from '../ProductDetails';
+import ProductForm from '../ProductForm';
 
 class ProductIndexPage extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class ProductIndexPage extends Component {
       products: productsData
     }
     this.deleteProduct = this.deleteProduct.bind(this);
+    this.createProduct = this.createProduct.bind(this);
   }
 
   deleteProduct(id) {
@@ -21,9 +23,22 @@ class ProductIndexPage extends Component {
     })
   }
 
+  createProduct(params) {
+    console.log('createProduct invoked')
+    this.setState((state) => {
+      return {
+        products: [
+          { ...params },
+          ...state.products
+        ]
+      }
+    })
+  }
+
   render() {
     return(
       <main className='page'>
+        <ProductForm createProduct={ this.createProduct }/>
         { this.state.products.map((product) => {
           return(
             <ProductDetails key={product.id} {...product} deleteProduct={this.deleteProduct}/>
