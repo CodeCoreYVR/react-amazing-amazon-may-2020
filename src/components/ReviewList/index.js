@@ -1,12 +1,12 @@
 import React from 'react';
 import ReviewDetails from '../ReviewDetails';
 
-function ReviewList({ reviews }) {
+function ReviewList({ reviews, deleteReview }) {
   return(
     <ul className="list">
       { reviews.map(review => {
         return(
-          <li key={review.id}><ReviewDetails { ...review }/></li>
+          <li key={review.id}><ReviewDetails { ...review } deleteReview={deleteReview}/></li>
         )
       })}
     </ul>
