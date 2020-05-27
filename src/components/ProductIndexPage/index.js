@@ -28,7 +28,10 @@ class ProductIndexPage extends Component {
     this.setState((state) => {
       return {
         products: [
-          { ...params },
+          { ...params,
+            id: state.products[0] + 1,
+            created_at: new Date().toString()
+          },
           ...state.products
         ]
       }

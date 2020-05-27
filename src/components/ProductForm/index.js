@@ -7,7 +7,7 @@ export default function ProductForm({ createProduct }) {
     const { currentTarget } = event;
     const formData = new FormData(currentTarget);
     createProduct({
-      id: 2352352,
+      seller: { full_name: 'conan' },
       title: formData.get('title'),
       description: formData.get('description'),
       price: formData.get('price')
