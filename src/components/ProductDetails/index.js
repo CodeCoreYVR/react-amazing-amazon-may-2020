@@ -1,10 +1,15 @@
 import React from 'react';
 
-function ProductDetails({ title, description, price, created_at, seller }) {
+function ProductDetails({ id, title, description, price, created_at, seller, deleteProduct }) {
   let sellerName = seller ? seller.full_name : '';
+
+  function handleDelete() {
+    deleteProduct(id);
+  }
+
   return(
     <div>
-      <h2>{ title } | { price }</h2>
+      <h2>{ title } | { price } <button onClick={ handleDelete }>Delete</button></h2>
       <p>{ description }</p>
 
       <small>Sold by: { sellerName }</small>
