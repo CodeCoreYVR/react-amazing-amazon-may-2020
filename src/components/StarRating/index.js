@@ -6,11 +6,11 @@ function StarRating({ max, rating }) {
   for(let i = 0; i < max; i++) {
     if (i < rating) {
       stars.push(
-        <Star style={{color: 'yellow', width: '25px'}}/>
+        <Star key={i} style={{color: 'yellow', width: '25px'}}/>
       )
     } else {
       stars.push(
-        <Star style={{width: '25px', color: 'lightgrey'}}/>
+        <Star key={i} style={{width: '25px', color: 'lightgrey'}}/>
       )
     }
   }
