@@ -7,6 +7,8 @@ function NavBar() {
       <NavLink to='/'>Home</NavLink>
       ||
       <NavLink to='/products'>Product Index</NavLink>
+      ||
+      <NavLink to='/products/new'>Product New Page</NavLink>
     </div>
   )
 }
