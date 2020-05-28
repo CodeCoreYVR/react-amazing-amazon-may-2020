@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import productsData from '../../data/products';
 import ProductDetails  from '../ProductDetails';
 import ProductForm from '../ProductForm';
+import { Link } from 'react-router-dom';
 
 class ProductIndexPage extends Component {
   constructor(props) {
@@ -44,7 +45,9 @@ class ProductIndexPage extends Component {
         <ProductForm createProduct={ this.createProduct }/>
         { this.state.products.map((product) => {
           return(
-            <ProductDetails key={product.id} {...product} deleteProduct={this.deleteProduct}/>
+            <Link key={product.id} to={`/products/${product.id}`}>
+              <ProductDetails {...product} deleteProduct={this.deleteProduct}/>
+            </Link>
             // <ProductDetails
             //   id={product.id}
             //   price={product.price}
