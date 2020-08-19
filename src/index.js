@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import ProductShowPage from './components/ProductShowPage';
 import ProductIndexPage from './components/ProductIndexPage';
+import ControlledFormDemo from './components/ControlledFormDemo';
 
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ProductShowPage />
-    <ProductIndexPage />
+    <ControlledFormDemo />
   </React.StrictMode>,
   document.getElementById('root')
 );
