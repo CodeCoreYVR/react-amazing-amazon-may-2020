@@ -14,16 +14,19 @@ class SignInPage extends Component {
     event.preventDefault();
     const { currentTarget } = event;
     const formData = new FormData(currentTarget);
+
     Session.create({
       email: formData.get('email'),
       password: formData.get('password'),
     }).then(data => {
+      const { getCurrentUser, history } = this.props;
       if (data.status === 404) {
         this.setState({
           error: "Wrong email or password",
         });
       } else {
-        this.props.history.push('/');
+        getCurrentUser();
+        history.push('/');
       }
     });
   }

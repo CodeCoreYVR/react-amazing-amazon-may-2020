@@ -1,17 +1,23 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-function NavBar() {
+function NavBar({ currentUser }) {
   return(
-    <div>
+    <nav>
       <NavLink to='/'>Home</NavLink>
       ||
       <NavLink to='/products'>Product Index</NavLink>
       ||
-      <NavLink to='/products/new'>Product New Page</NavLink>
-      ||
-      <NavLink to='/login'>Sign In</NavLink>
-    </div>
+      {currentUser ? (
+        <>
+          <NavLink to='/products/new'>Product New Page</NavLink>
+          ||
+          <span>Welcome, {currentUser.full_name}</span>
+        </>
+      ) : (
+        <NavLink to='/login'>Sign In</NavLink>
+      )}
+    </nav>
   )
 }
 
