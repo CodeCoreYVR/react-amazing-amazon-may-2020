@@ -5,6 +5,7 @@ import ProductShowPage from '../ProductShowPage';
 import NewProductPage from '../NewProductPage'
 import SignInPage from '../SignInPage'
 import NavBar from '../NavBar';
+import AuthRoute from '../AuthRoute';
 import { Session, User } from '../../requests';
 
 class App extends Component {
@@ -12,6 +13,7 @@ class App extends Component {
     super(props);
     this.state = {
       currentUser: null,
+      isLoading: true,
     }
     this.getCurrentUser = this.getCurrentUser.bind(this);
     this.destroySession = this.destroySession.bind(this);
@@ -19,15 +21,17 @@ class App extends Component {
 
   componentDidMount() {
     this.getCurrentUser();
+    
   }
 
   getCurrentUser() {
     User.current().then(user => {
       if (user.id) {
         this.setState({ 
-          currentUser: user
+          currentUser: user,
         });
       }
+      this.setState({ isLoading: false });
     })
   }
 
@@ -36,8 +40,8 @@ class App extends Component {
   }
 
   render() {
-    const { currentUser } = this.state;
-    return(
+    const { currentUser, isLoading } = this.state;
+    return isLoading ? <main>Loading...</main> : (
       <BrowserRouter>
         <NavBar currentUser={currentUser} destroySession={this.destroySession} />
         <Switch>
@@ -48,9 +52,23 @@ class App extends Component {
               <SignInPage {...routeProps} getCurrentUser={this.getCurrentUser} />
             )}
           />
-          <Route path='/products' exact component={ ProductIndexPage }/>
-          <Route path='/products/new' component={ NewProductPage } />
-          <Route path='/products/:id' component={ ProductShowPage } />
+          <AuthRoute 
+            isAuthenticated={currentUser}
+            path='/products' 
+            exact 
+            component={ ProductIndexPage }
+          />
+          <AuthRoute 
+            isAuthenticated={currentUser}
+            path='/products/new' 
+            exact
+            component={ NewProductPage } 
+          />
+          <AuthRoute 
+            isAuthenticated={currentUser}
+            path='/products/:id' 
+            component={ ProductShowPage } 
+          />
         </Switch>
       </BrowserRouter>
     )
