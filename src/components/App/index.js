@@ -5,7 +5,7 @@ import ProductShowPage from '../ProductShowPage';
 import NewProductPage from '../NewProductPage'
 import SignInPage from '../SignInPage'
 import NavBar from '../NavBar';
-import { User } from '../../requests';
+import { Session, User } from '../../requests';
 
 class App extends Component {
   constructor(props) {
@@ -14,6 +14,7 @@ class App extends Component {
       currentUser: null,
     }
     this.getCurrentUser = this.getCurrentUser.bind(this);
+    this.destroySession = this.destroySession.bind(this);
   }
 
   componentDidMount() {
@@ -30,11 +31,15 @@ class App extends Component {
     })
   }
 
+  destroySession() {
+    Session.destroy().then(() => this.setState({ currentUser: null }));
+  }
+
   render() {
     const { currentUser } = this.state;
     return(
       <BrowserRouter>
-        <NavBar currentUser={currentUser} />
+        <NavBar currentUser={currentUser} destroySession={this.destroySession} />
         <Switch>
           <Route 
             path='/login' 
