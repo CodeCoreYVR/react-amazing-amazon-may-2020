@@ -1,54 +1,42 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import ProductForm from '../ProductForm';
 import { Product } from '../../requests';
 
-class NewProductPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      formData: {
-        title: '',
-        description: '',
-        price: '',
-      }
-    }
-    this.createProduct = this.createProduct.bind(this);
-    this.updateProductParams = this.updateProductParams.bind(this);
-  }
+function NewProductPage(props) {
+  const [productParams, setProductParams] = useState({
+    title: '',
+    description: '',
+    price: '',
+  });
 
-  updateProductParams(params) {
-    this.setState(state => {
+  function updateProductParams(params) {
+    setProductParams(state => {
       return {
-        formData: { 
-          ...state.formData,
-          ...params, 
-        }
+        ...state,
+        ...params,
       }
     })
   }
 
-  createProduct() {
-    const { formData } = this.state;
-    Product.create(formData).then((product) => {
-      this.props.history.push(`/products/${product.id}`);
+  function createProduct() {
+    Product.create(productParams).then((product) => {
+      props.history.push(`/products/${product.id}`);
     })
   }
 
-  render() {
-    const { title, description, price } = this.state.formData;
-    return(
-      <main>
-        <h1> Product New Page</h1>
-        <ProductForm 
-          createProduct={ this.createProduct }
-          updateProductParams={ this.updateProductParams }
-          title={title}
-          description={description}
-          price={price}
-        />
-      </main>
-    )
-  }
+  const { title, description, price } = productParams;
+  return(
+    <main>
+      <h1> Product New Page</h1>
+      <ProductForm 
+        createProduct={ createProduct }
+        updateProductParams={ updateProductParams }
+        title={title}
+        description={description}
+        price={price}
+      />
+    </main>
+  )
 }
 
 export default NewProductPage
