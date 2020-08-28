@@ -1,32 +1,32 @@
 import React from 'react';
 
-export default function ProductForm({ createProduct }) {
+export default function ProductForm({ createProduct, updateProductParams, title, description, price }) {
+
+  function handleChange(e) {
+    const input = e.target;
+    updateProductParams({
+      [input.name]: input.value,
+    })
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
-    const { currentTarget } = event;
-    const formData = new FormData(currentTarget);
-    createProduct({
-      seller: { full_name: 'conan' },
-      title: formData.get('title'),
-      description: formData.get('description'),
-      price: formData.get('price')
-    })
+    createProduct();
   }
 
   return(
     <form onSubmit={ handleSubmit }>
       <div>
         <label htmlFor='title'>Title</label>
-        <input type='text' name='title'/>
+        <input type='text' name='title' value={title} onChange={handleChange} />
       </div>
       <div>
         <label htmlFor='description'>Description</label>
-        <textarea type='text' name='description'/>
+        <textarea type='text' name='description' value={description} onChange={handleChange} />
       </div>
       <div>
         <label htmlFor='price'>Price</label>
-        <input type='number' name='price'/>
+        <input type='number' name='price' value={price} onChange={handleChange} />
       </div>
       <div>
         <input type='submit' value='Create Product'/>
