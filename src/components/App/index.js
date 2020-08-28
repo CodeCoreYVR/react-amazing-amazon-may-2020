@@ -6,6 +6,7 @@ import NewProductPage from '../NewProductPage'
 import SignInPage from '../SignInPage'
 import NavBar from '../NavBar';
 import AuthRoute from '../AuthRoute';
+import NotFoundPage from '../NotFoundPage';
 import { Session, User } from '../../requests';
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
           path='/products/:id' 
           component={ ProductShowPage } 
         />
+        <Route component={NotFoundPage} /> 
       </Switch>
     </BrowserRouter>
   )
