@@ -8,6 +8,7 @@ function NewProductPage(props) {
     description: '',
     price: '',
   });
+  const [errors, setErrors] = useState([]);
 
   function updateProductParams(params) {
     setProductParams(state => {
@@ -15,12 +16,16 @@ function NewProductPage(props) {
         ...state,
         ...params,
       }
-    })
+    });
   }
 
   function createProduct() {
-    Product.create(productParams).then((product) => {
-      props.history.push(`/products/${product.id}`);
+    Product.create(productParams).then(({id, errors}) => {
+      if (id) {
+        props.history.push(`/products/${id}`);
+      } else {
+        setErrors(errors);
+      }
     })
   }
 
@@ -34,6 +39,7 @@ function NewProductPage(props) {
         title={title}
         description={description}
         price={price}
+        errors={errors}
       />
     </main>
   )
